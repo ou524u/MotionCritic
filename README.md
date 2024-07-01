@@ -3,6 +3,20 @@
 This repository contains the PyTorch implementation of the paper "Aligning Motion Generation with Human Perceptions". 
 <!-- submitted to NeurIPS 2024, D&B track. -->
 
+
+<a href="https://pytorch.org/get-started/locally/">
+    <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white">
+</a> 
+[![arXiv](https://img.shields.io/badge/arXiv-2210.06551-b31b1b.svg)](https://arxiv.org/abs/2210.06551) 
+<a href="https://motioncritic.github.io/">
+    <img alt="Project" src="https://img.shields.io/badge/-Project%20Page-lightgrey?logo=Google%20Chrome&color=informational&logoColor=white">
+</a> 
+<a href="https://youtu.be/slSPQ9hNLjM">
+    <img alt="Demo" src="https://img.shields.io/badge/-Demo-ea3323?logo=youtube">
+</a>
+
+![framework](https://github.com/ou524u/MotionCritic/assets/92263178/215232a3-6499-404a-9475-a877c63e3dd7)
+
 ## Quick Demo
 MotionCritic is capable of scoring a single motion with just a few lines of code.
 ```bash
@@ -10,12 +24,15 @@ bash prepare/prepare_smpl.sh
 ```
 
 ```python
+# before entering the critic model, example motion shape is [bs, 25, 6, frame]
+# it's pre-processed into [bs, frame, 25, 3]
+
 from lib.model.load_critic import load_critic
 from parsedata import into_critic
 import torch
 critic_model = load_critic("critic/exp8_final.pth", 'cpu')
 example = torch.load("criexample.pth", map_location='cpu')
-# get critic scores calculated. 
+# calculate critic score
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
 print(f"critic scores are {critic_scores}") # Critic score being 4.1297 in this case
 ```
@@ -35,10 +52,10 @@ import torch
 
 critic_model = load_critic("critic/exp8_final.pth", 'cpu')
 example = torch.load("visexample.pth", map_location='cpu')
-# get critic scores calculated. 
+# calculate critic score
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
 print(f"critic scores are {critic_scores}")
-# get motions rendered
+# rendering
 render_multi(example['motion'], 'cpu', example['comment'], example['path'])
 ```
 
