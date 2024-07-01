@@ -4,7 +4,7 @@ This repository contains the PyTorch implementation of the paper "Aligning Motio
 <!-- submitted to NeurIPS 2024, D&B track. -->
 
 
-<a href="https://pytorch.org/get-started/locally/"> <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"> </a> [![arXiv](https://img.shields.io/badge/arXiv-2210.06551-b31b1b.svg)](https://arxiv.org/abs/2210.06551) <a href="https://motioncritic.github.io/"> <img alt="Project" src="https://img.shields.io/badge/-Project%20Page-lightgrey?logo=Google%20Chrome&color=informational&logoColor=white"> </a> <a href="https://youtu.be/BPz1bS2m25o"> <img alt="Demo" src="https://img.shields.io/badge/-Demo-ea3323?logo=youtube"> </a>
+<a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"> </a> [![arXiv](https://img.shields.io/badge/arXiv-2210.06551-b31b1b.svg)](https://arxiv.org/abs/2210.06551) <a href="https://motioncritic.github.io/"><img alt="Project" src="https://img.shields.io/badge/-Project%20Page-lightgrey?logo=Google%20Chrome&color=informational&logoColor=white"> </a> <a href="https://youtu.be/BPz1bS2m25o"><img alt="Demo" src="https://img.shields.io/badge/-Demo-ea3323?logo=youtube"> </a>
 
 ![framework](https://github.com/ou524u/MotionCritic/assets/92263178/215232a3-6499-404a-9475-a877c63e3dd7)
 
