@@ -12,7 +12,7 @@ cd MDMCritic
 from critic.load_critic import load_critic
 from sample.critic_generate import into_critic
 import torch
-critic_model = load_critic("critic/exp8_final.pth", 'cpu')
+critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
 example = torch.load("criexample.pth", map_location='cpu')
 # get critic scores calculated. 
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
@@ -32,7 +32,7 @@ from render.render import render_multi
 from sample.critic_generate import into_critic
 import torch
 
-critic_model = load_critic("critic/exp8_final.pth", 'cpu')
+critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
 example = torch.load("visexample.pth", map_location='cpu')
 # get critic scores calculated. 
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
@@ -134,7 +134,7 @@ cd MDMCritic
 python -m train.tune_mdm \
 --dataset humanact12 --cond_mask_prob 0 --lambda_rcxyz 1 --lambda_vel 1 --lambda_fc 1 \
 --resume_checkpoint ./save/humanact12/model000350000.pt \
---reward_model_path ./reward/exp8_final.pth \
+--reward_model_path ./reward/motioncritic_pre.pth \
 --device 0 \
 --num_steps 1200 \
 --save_interval 100 \

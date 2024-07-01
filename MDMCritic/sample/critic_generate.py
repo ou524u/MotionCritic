@@ -202,7 +202,7 @@ def main():
 
 
     model.to(real_device)
-    checkpoint = torch.load(os.path.join(PROJ_DIR, f"critic/exp8_final.pth"))
+    checkpoint = torch.load(os.path.join(PROJ_DIR, f"critic/motioncritic_pre.pth"))
     # Load the model and optimizer
     model.load_state_dict(checkpoint['model_state_dict'])
 

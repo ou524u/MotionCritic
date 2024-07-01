@@ -31,7 +31,7 @@ model = torch.nn.DataParallel(model)
 model.to(device)
 
 # load pretrained model
-checkpoint = torch.load(os.path.join(PROJ_DIR,f'pretrained/exp8_final.pth'), map_location=device)
+checkpoint = torch.load(os.path.join(PROJ_DIR,f'pretrained/motioncritic_pre.pth'), map_location=device)
     # Load the model and optimizer
 model.load_state_dict(checkpoint['model_state_dict'])
 

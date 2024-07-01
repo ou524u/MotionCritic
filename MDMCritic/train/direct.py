@@ -29,7 +29,7 @@ def parse():
     parser.add_argument("--lr", default=1e-4, type=float, help="Learning rate.")
     parser.add_argument("--scale", default=1e0, type=float, help="Learning rate.")
     parser.add_argument("--batch_size", default=32, type=int, help='batch size')
-    parser.add_argument("--critic_model_path", default=os.path.join(PROJ_DIR, "critic/exp8_final.pth"), type=str, help="path to critic model")
+    parser.add_argument("--critic_model_path", default=os.path.join(PROJ_DIR, "critic/motioncritic_pre.pth"), type=str, help="path to critic model")
     return parser.parse_args()
 
 

@@ -195,7 +195,7 @@ def add_evaluation_options(parser):
     group = parser.add_argument_group('eval')
     group.add_argument("--model_path", required=True, type=str,
                        help="Path to model####.pt file to be sampled.")
-    group.add_argument("--critic_model_path", default="./critic/exp8_final.pth", type=str,
+    group.add_argument("--critic_model_path", default="./critic/motioncritic_pre.pth", type=str,
                        help="Path to critic model.")
     group.add_argument("--eval_mode", default='wo_mm', choices=['wo_mm', 'mm_short', 'debug', 'full'], type=str,
                        help="wo_mm (t2m only) - 20 repetitions without multi-modality metric; "
@@ -208,7 +208,7 @@ def add_evaluation_options(parser):
 
 def add_tuning_options(parser):
     group = parser.add_argument_group('finetune')
-    group.add_argument("--critic_model_path", default="./critic/exp8_final.pth", type=str,
+    group.add_argument("--critic_model_path", default="./critic/motioncritic_pre.pth", type=str,
                        help="Path to critic model.")
     group.add_argument("--ddim_sampling", action='store_true',
                        help="ReFL sampling using ddim sampling")

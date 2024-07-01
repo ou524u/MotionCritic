@@ -22,7 +22,7 @@ Below are the available tuning options for the critic model. These options can b
 
 ### Tuning Option Descriptions
 
-- **--critic_model_path**: Path to the critic model. Default is `./critic/exp8_final.pth`.
+- **--critic_model_path**: Path to the critic model. Default is `./critic/motioncritic_pre.pth`.
 - **--ddim_sampling**: Use ReFL sampling with DDIM sampling. Enabled with the `--ddim_sampling` flag.
 - **--render_video**: Render video during training. Enabled with the `--render_video` flag.
 - **--sample_when_eval**: Sample when evaluating. Enabled with the `--sample_when_eval` flag.
@@ -47,7 +47,7 @@ cd MDMCritic
 python -m train.tune_mdm \
 --dataset humanact12 --cond_mask_prob 0 --lambda_rcxyz 1 --lambda_vel 1 --lambda_fc 1 \
 --resume_checkpoint ./save/humanact12/model000350000.pt \
---reward_model_path ./reward/exp8_final.pth \
+--reward_model_path ./reward/motioncritic_pre.pth \
 --device 0 \
 --num_steps 1200 \
 --save_interval 100 \
