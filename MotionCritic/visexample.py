@@ -3,7 +3,7 @@ from render.render import render_multi
 from parsedata import into_critic
 import torch
 
-critic_model = load_critic("critic/exp8_final.pth", 'cpu')
+critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
 example = torch.load("visexample.pth", map_location='cpu')
 # get critic scores calculated. 
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
