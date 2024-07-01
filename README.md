@@ -1,18 +1,19 @@
 # Aligning Motion Generation with Human Perceptions
 
-This repository contains the PyTorch implementation of the paper "Aligning Motion Generation with Human Perceptions," submitted to NeurIPS 2024, D&B track.
+This repository contains the PyTorch implementation of the paper "Aligning Motion Generation with Human Perceptions". 
+<!-- submitted to NeurIPS 2024, D&B track. -->
 
 ## Quick Demo
 MotionCritic is capable of scoring a single motion with just a few lines of code.
 ```bash
-cd MDMCritic
+bash prepare/prepare_smpl.sh
 ```
 
 ```python
-from critic.load_critic import load_critic
-from sample.critic_generate import into_critic
+from lib.model.load_critic import load_critic
+from parsedata import into_critic
 import torch
-critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
+critic_model = load_critic("critic/exp8_final.pth", 'cpu')
 example = torch.load("criexample.pth", map_location='cpu')
 # get critic scores calculated. 
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
@@ -22,17 +23,17 @@ print(f"critic scores are {critic_scores}") # Critic score being 4.1297 in this 
 
 https://github.com/ou524u/AlignHP/assets/92263178/edd9600a-5c72-4594-80b3-356d442736c9
 
-Try scoring multiple motions with some more [code](MDMCritic/visexample.py) 
+Try scoring multiple motions with some more [code](MotionCritic/visexample.py) 
 ```bash
 bash prepare/prepare_demo.sh
 ```
 ```python
-from critic.load_critic import load_critic
+from lib.model.load_critic import load_critic
 from render.render import render_multi
-from sample.critic_generate import into_critic
+from parsedata import into_critic
 import torch
 
-critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
+critic_model = load_critic("critic/exp8_final.pth", 'cpu')
 example = torch.load("visexample.pth", map_location='cpu')
 # get critic scores calculated. 
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
@@ -134,7 +135,7 @@ cd MDMCritic
 python -m train.tune_mdm \
 --dataset humanact12 --cond_mask_prob 0 --lambda_rcxyz 1 --lambda_vel 1 --lambda_fc 1 \
 --resume_checkpoint ./save/humanact12/model000350000.pt \
---reward_model_path ./reward/motioncritic_pre.pth \
+--reward_model_path ./reward/exp8_final.pth \
 --device 0 \
 --num_steps 1200 \
 --save_interval 100 \
@@ -150,3 +151,13 @@ python -m train.tune_mdm \
 ```
 
 Additional Python scripts for various fine-tuning purposes can be found in `MDMCritic/train`, detailed in the [fine-tuning documentation](docs/finetuning.md).
+
+
+## Citation
+If you find our work useful for your project, please consider citing the paper:
+```bibtex
+@article{motionpercept2024,
+        title={Aligning Motion Generation with Human Perceptions},
+        author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},
+        year={2024}
+```

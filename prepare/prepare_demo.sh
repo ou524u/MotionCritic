@@ -1,5 +1,7 @@
 
-cd MotionCritic/critic
+cd MotionCritic
+mkdir -p pretrained
+cd pretrained
 gdown https://drive.google.com/uc?id=1vifu1vktjCWDpyPpzGPugzHNalhsaMpq
 echo -e "Downloading pretrained model, done!"
 cd ..
