@@ -1,0 +1,144 @@
+{
+    "@context": {
+        "@language": "en",
+        "@vocab": "https://schema.org/",
+        "citeAs": "cr:citeAs",
+        "column": "cr:column",
+        "conformsTo": "dct:conformsTo",
+        "cr": "http://mlcommons.org/croissant/",
+        "rai": "http://mlcommons.org/croissant/RAI/",
+        "data": {
+            "@id": "cr:data",
+            "@type": "@json"
+        },
+        "dataType": {
+            "@id": "cr:dataType",
+            "@type": "@vocab"
+        },
+        "dct": "http://purl.org/dc/terms/",
+        "examples": {
+            "@id": "cr:examples",
+            "@type": "@json"
+        },
+        "extract": "cr:extract",
+        "field": "cr:field",
+        "fileProperty": "cr:fileProperty",
+        "fileObject": "cr:fileObject",
+        "fileSet": "cr:fileSet",
+        "format": "cr:format",
+        "includes": "cr:includes",
+        "isLiveDataset": "cr:isLiveDataset",
+        "jsonPath": "cr:jsonPath",
+        "key": "cr:key",
+        "md5": "cr:md5",
+        "parentField": "cr:parentField",
+        "path": "cr:path",
+        "recordSet": "cr:recordSet",
+        "references": "cr:references",
+        "regex": "cr:regex",
+        "repeated": "cr:repeated",
+        "replace": "cr:replace",
+        "sc": "https://schema.org/",
+        "separator": "cr:separator",
+        "source": "cr:source",
+        "subField": "cr:subField",
+        "transform": "cr:transform"
+    },
+    "@type": "sc:Dataset",
+    "name": "MotionPercept",
+    "description": "MotionPercept contains real-human perceptual evaluations with large-scale and diverse human motion sequences. In total, we collect annotations for 18260 multiple-choice questions covering 73K unique motions",
+    "conformsTo": "http://mlcommons.org/croissant/1.0",
+    "citeAs": "@article{motionpercept2024,\n title={Aligning Motion Generation with Human Perceptions},\n author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},\n year={2024}}",
+    "license": "CC BY-NC 4.0",
+    "url": "https://github.com/ou524u/AlignHP",
+    "version": "1.0",
+    "distribution": [
+        {
+            "@type": "cr:FileObject",
+            "@id": "motions.zip",
+            "contentUrl": "data/motions.zip",
+            "encodingFormat": "application/zip",
+            "sha256": "main"
+        },
+        {
+            "@type": "cr:FileObject",
+            "@id": "mlists.zip",
+            "contentUrl": "dataset/mlist.zip",
+            "encodingFormat": "application/zip",
+            "sha256": "main"
+        },
+        {
+            "@type": "cr:FileObject",
+            "@id": "annotations.zip",
+            "contentUrl": "marked/annotations.zip",
+            "encodingFormat": "application/zip",
+            "sha256": "main"
+        },
+        {
+            "@type": "cr:FileSet",
+            "@id": "motion-files",
+            "containedIn": {
+                "@id": "motions.zip"
+            },
+            "encodingFormat": "application/npz",
+            "includes": "*.npz"
+        },
+        {
+            "@type": "cr:FileObject",
+            "@id": "motion-pth",
+            "description": "We split dataset into train, val, which can be used directly.",
+            "containedIn": {
+                "@id": "mlists.zip"
+            },
+            "encodingFormat": "application/pth"
+        },
+        {
+            "@type": "cr:FileSet",
+            "@id": "motion-annotations",
+            "description": "Include annotation files of motions. We split them into different folders according to label classes and sources.",
+            "containedIn": {
+                "@id": "annotations.zip"
+            },
+            "encodingFormat": "application/json",
+            "includes": "*.json"
+        }
+    ],
+    "recordSet": [
+        {
+            "@type": "cr:RecordSet",
+            "@id": "default",
+            "name": "default",
+            "description": "The default set of records in the dataset.",
+            "field": [
+                {
+                    "@type": "cr:Field",
+                    "@id": "default-motion",
+                    "name": "motion",
+                    "dataType": "sc:URL",
+                    "source": {
+                        "fileSet": {
+                            "@id": "motion-files"
+                        },
+                        "extract": {
+                            "column": "motion"
+                        }
+                    }
+                },
+                {
+                    "@type": "cr:Field",
+                    "@id": "default-annotation",
+                    "name": "annotation",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "fileSet": {
+                            "@id": "motion-annotations"
+                        },
+                        "extract": {
+                            "column": "annotation"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
