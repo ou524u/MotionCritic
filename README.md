@@ -15,8 +15,8 @@ bash prepare/prepare_smpl.sh
 ```
 
 ```python
-# before entering the critic model, example motion shape is [bs, 25, 6, frame]
-# it's pre-processed into [bs, frame, 25, 3]
+# example motion shape is [bs, 25, 6, frame], rot6d with 24 SMPL joints and 1 XYZ root location
+# it's transfered into [bs, frame, 25, 3], axis-angle with 24 SMPL joints and 1 XYZ root location
 
 from lib.model.load_critic import load_critic
 from parsedata import into_critic
