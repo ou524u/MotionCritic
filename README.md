@@ -166,7 +166,8 @@ Additional Python scripts for various fine-tuning purposes can be found in `MDMC
 If you find our work useful for your project, please consider citing the paper:
 ```bibtex
 @article{motionpercept2024,
-        title={Aligning Motion Generation with Human Perceptions},
-        author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},
-        year={2024}
+    title={Aligning Motion Generation with Human Perceptions},
+    author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},
+    year={2024}
+}
 ```
