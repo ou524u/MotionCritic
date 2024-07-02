@@ -15,16 +15,17 @@ bash prepare/prepare_smpl.sh
 ```
 
 ```python
-# example motion shape is [bs, 25, 6, frame], rot6d with 24 SMPL joints and 1 XYZ root location
-# it's transfered into [bs, frame, 25, 3], axis-angle with 24 SMPL joints and 1 XYZ root location
-
 from lib.model.load_critic import load_critic
 from parsedata import into_critic
 import torch
-critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
-example = torch.load("criexample.pth", map_location='cpu')
-# calculate critic score
-critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+critic_model = load_critic("critic/motioncritic_pre.pth", device)
+example = torch.load("criexample.pth", map_location=device)
+example_motion = example['motion'] # [bs, 25, 6, frame], rot6d with 24 SMPL joints and 1 XYZ root location
+# motion pre-processing
+preprocessed_motion = into_critic(example['motion']) # [bs, frame, 25, 3], axis-angle with 24 SMPL joints and 1 XYZ root location
+# critic score
+critic_scores = critic_model.module.batch_critic(preprocessed_motion)
 print(f"critic scores are {critic_scores}") # Critic score being 4.1297 in this case
 ```
 
@@ -40,14 +41,14 @@ from lib.model.load_critic import load_critic
 from render.render import render_multi
 from parsedata import into_critic
 import torch
-
-critic_model = load_critic("critic/motioncritic_pre.pth", 'cpu')
-example = torch.load("visexample.pth", map_location='cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+critic_model = load_critic("critic/motioncritic_pre.pth", device)
+example = torch.load("visexample.pth", map_location=device)
 # calculate critic score
 critic_scores = critic_model.module.batch_critic(into_critic(example['motion']))
 print(f"critic scores are {critic_scores}")
 # rendering
-render_multi(example['motion'], 'cpu', example['comment'], example['path'])
+render_multi(example['motion'], device, example['comment'], example['path'])
 ```
 
 https://github.com/ou524u/AlignHP/assets/92263178/a11fa74d-43a4-4dff-a755-c0c9fe00ccfe
