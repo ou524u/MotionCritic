@@ -171,3 +171,87 @@ If you find our work useful for your project, please consider citing the paper:
     year={2024}
 }
 ```
+
+## Acknowledgement
+
+If you use MotionCritic in your work, please also cite the original datasets and methods on which our work is based.
+
+MDM:
+
+```bibtex
+@inproceedings{
+  tevet2023human,
+  title={Human Motion Diffusion Model},
+  author={Guy Tevet and Sigal Raab and Brian Gordon and Yoni Shafir and Daniel Cohen-or and Amit Haim Bermano},
+  booktitle={The Eleventh International Conference on Learning Representations },
+  year={2023},
+  url={https://openreview.net/forum?id=SJ1kSyO2jwu}
+}
+```
+
+HumanAct12:
+
+```bibtex
+@inproceedings{guo2020action2motion,
+  title={Action2motion: Conditioned generation of 3d human motions},
+  author={Guo, Chuan and Zuo, Xinxin and Wang, Sen and Zou, Shihao and Sun, Qingyao and Deng, Annan and Gong, Minglun and Cheng, Li},
+  booktitle={Proceedings of the 28th ACM International Conference on Multimedia},
+  pages={2021--2029},
+  year={2020}
+}
+```
+
+FLAME:
+
+```bibtex
+@inproceedings{kim2023flame,
+  title={Flame: Free-form language-based motion synthesis \& editing},
+  author={Kim, Jihoon and Kim, Jiseob and Choi, Sungjoon},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={37},
+  number={7},
+  pages={8255--8263},
+  year={2023}
+}
+```
+
+UESTC:
+
+```bibtex
+@inproceedings{ji2018large,
+  title={A large-scale RGB-D database for arbitrary-view human action recognition},
+  author={Ji, Yanli and Xu, Feixiang and Yang, Yang and Shen, Fumin and Shen, Heng Tao and Zheng, Wei-Shi},
+  booktitle={Proceedings of the 26th ACM international Conference on Multimedia},
+  pages={1510--1518},
+  year={2018}
+}
+```
+
+DSTFormer:
+
+```bibtex
+@inproceedings{zhu2023motionbert,
+  title={Motionbert: A unified perspective on learning human motion representations},
+  author={Zhu, Wentao and Ma, Xiaoxuan and Liu, Zhaoyang and Liu, Libin and Wu, Wayne and Wang, Yizhou},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={15085--15099},
+  year={2023}
+}
+```
+
+SMPL:
+
+```bibtex
+@incollection{loper2023smpl,
+  title={SMPL: A skinned multi-person linear model},
+  author={Loper, Matthew and Mahmood, Naureen and Romero, Javier and Pons-Moll, Gerard and Black, Michael J},
+  booktitle={Seminal Graphics Papers: Pushing the Boundaries, Volume 2},
+  pages={851--866},
+  year={2023}
+}
+```
+
+We also recommend exploring other motion metrics, including [PoseNDF](https://arxiv.org/abs/2207.13807), [NPSS](https://arxiv.org/abs/1809.03036), [NDMS](http://gall.cv-uni-bonn.de/download/jgall_forecastintention_3dv21.pdf), [MoBERT](https://arxiv.org/abs/2309.10248), and [PFC](https://arxiv.org/abs/2211.10658). You can also check out a [survey](https://arxiv.org/abs/2307.10894) of different motion generation metrics.
+
+
+
