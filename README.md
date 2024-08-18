@@ -251,7 +251,7 @@ SMPL:
 }
 ```
 
-We also recommend exploring other motion metrics, including [PoseNDF](https://arxiv.org/abs/2207.13807), [NPSS](https://arxiv.org/abs/1809.03036), [NDMS](http://gall.cv-uni-bonn.de/download/jgall_forecastintention_3dv21.pdf), [MoBERT](https://arxiv.org/abs/2309.10248), and [PFC](https://arxiv.org/abs/2211.10658). You can also check out a [survey](https://arxiv.org/abs/2307.10894) of different motion generation metrics.
+We also recommend exploring other motion metrics, including [PoseNDF](https://arxiv.org/abs/2207.13807), [NPSS](https://arxiv.org/abs/1809.03036), [NDMS](http://gall.cv-uni-bonn.de/download/jgall_forecastintention_3dv21.pdf), [MoBERT](https://arxiv.org/abs/2309.10248), and [PFC](https://arxiv.org/abs/2211.10658). You can also check out a [survey](https://arxiv.org/abs/2307.10894) of different motion generation metrics, datasets, and approaches.
 
 
 
