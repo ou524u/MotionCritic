@@ -165,16 +165,17 @@ Additional Python scripts for various fine-tuning purposes can be found in `MDMC
 ## Citation
 If you find our work useful for your project, please consider citing the paper:
 ```bibtex
-@article{motionpercept2024,
+@article{motioncritic2024,
     title={Aligning Motion Generation with Human Perceptions},
     author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},
+    journal={arXiv preprint arXiv:2407.02272},
     year={2024}
 }
 ```
 
 ## Acknowledgement
 
-If you use MotionCritic in your work, please also cite the original datasets and methods on which our work is based.
+If you use MotionPercept and MotionCritic in your work, please also cite the original datasets and methods on which our work is based.
 
 MDM:
 
