@@ -30,7 +30,9 @@ print(f"critic scores are {critic_scores}") # Critic score being 4.1297 in this 
 ```
 
 
-https://github.com/ou524u/AlignHP/assets/92263178/edd9600a-5c72-4594-80b3-356d442736c9
+https://github.com/user-attachments/assets/47db045a-85d8-44ac-9aa1-82adbdeb9393
+
+
 
 Try scoring multiple motions with some more [code](MotionCritic/visexample.py) 
 ```bash
@@ -51,7 +53,11 @@ print(f"critic scores are {critic_scores}")
 render_multi(example['motion'], device, example['comment'], example['path'])
 ```
 
-https://github.com/ou524u/AlignHP/assets/92263178/a11fa74d-43a4-4dff-a755-c0c9fe00ccfe
+
+
+https://github.com/user-attachments/assets/854d4f24-cc39-4e7e-95d9-336f081c64e3
+
+
 
 
 ## Getting Started
