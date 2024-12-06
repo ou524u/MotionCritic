@@ -8,7 +8,7 @@ os.environ['WANDB_CACHE_DIR'] = PROJ_DIR + '/wandb/.cache/'
 os.environ['WANDB_CONFIG_DIR'] = PROJ_DIR + '/wandb/.config/'
 
 
-from lib.model.critic import MotionCritic, MotionCritic_s
+from lib.model.critic import MotionCritic
 
 import torch
 from torch.utils.data import Dataset, DataLoader
@@ -202,30 +202,16 @@ val_loader = DataLoader(val_motion_pairs, batch_size=batch_size, shuffle=True, n
 
 # Instantiate your model, loss function, and optimizer
 
-if origin_model:
-    if big_model:
+if big_model:
 
-        model = MotionCritic(depth=3, dim_feat=256, dim_rep=512, mlp_ratio=4)
-        model = torch.nn.DataParallel(model)
-        model.to(device)
-
-    else:
-        model = MotionCritic(depth=3, dim_feat=128, dim_rep=256, mlp_ratio=2)
-        model = torch.nn.DataParallel(model)
-        model.to(device)
+    model = MotionCritic(depth=3, dim_feat=256, dim_rep=512, mlp_ratio=4)
+    model = torch.nn.DataParallel(model)
+    model.to(device)
 
 else:
-    if big_model:
-
-        model = MotionCritic_s(depth=3, dim_feat=256, dim_rep=512, mlp_ratio=4)
-        model = torch.nn.DataParallel(model)
-        model.to(device)
-
-    else:
-        model = MotionCritic_s(depth=3, dim_feat=128, dim_rep=256, mlp_ratio=2)
-        model = torch.nn.DataParallel(model)
-        model.to(device)
-
+    model = MotionCritic(depth=3, dim_feat=128, dim_rep=256, mlp_ratio=2)
+    model = torch.nn.DataParallel(model)
+    model.to(device)
 
 criterion = loss_func  # Assuming your loss_func is already defined
 # Create your optimizer
