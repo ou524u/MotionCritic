@@ -1,6 +1,7 @@
 *.pth
 *.pyc
 *.pth
+*.zip
 *.mp4
 wandb/
 assets/
@@ -19,3 +20,5 @@ MDMCritic/save/
 MDMCritic/body_models/
 MDMCritic/wandb/
 requirements.txt
+
+metric/metrics_data/

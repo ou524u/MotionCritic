@@ -1,4 +1,3 @@
-
 import sys
 import os
 PROJ_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,23 +14,43 @@ from sklearn.metrics import average_precision_score, brier_score_loss, accuracy_
 from lib.utils.rotation2xyz import Rotation2xyz
 
 from scipy.stats import wilcoxon
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Motion Critic Evaluation')
+    parser.add_argument('--mode', type=str, choices=['mdm', 'flame'], 
+                       default='mdm',
+                       required=False,
+                       help='Evaluation mode: mdm or flame')
+    return parser.parse_args()
+
+# Replace global variables with args
+# global mode set
+args = parse_args()
+
+# Remove global evalmdm and evalflame declarations
+# Instead, use args.mode throughout the code
+
+def choose_gt_dataset_from_filename(file_name):
+    if args.mode == 'mdm':
+        action_class = extract_number_from_filename(file_name)
+        if file_name[3] == 'a':
+            return gt_humanact12[action_class]
+        elif file_name[3] == 'u':
+            return gt_uestc[action_class]
+    
+    if args.mode == 'flame':
+        return gt_flame[0]
 
 
-evalmdm = False
-evalflame = False
-
-
-# evalflame = True
-evalmdm = True
-
-gt_humanact12 = [torch.load(os.path.join(PROJ_DIR, f'datasets/gt/motion-gt{i}.pth'))['motion'] for i in range(12)]
-gt_uestc = [torch.load(os.path.join(PROJ_DIR, f'/datasets/gt/motion-gtuestc{i}.pth'))['motion'] for i in range(40)]
+gt_humanact12 = [torch.load(os.path.join(PROJ_DIR, f'metric/metrics_data/gt-packed/gt-humanact12/motion-gt{i}.pth'))['motion'] for i in range(12)]
+gt_uestc = [torch.load(os.path.join(PROJ_DIR, f'metric/metrics_data/gt-packed/gt-uestc/motion-gtuestc{i}.pth'))['motion'] for i in range(40)]
 
 gt_humanact12xyz = []
 gt_uestcxyz = []
 
 
-gt_flame = [torch.load(os.path.join(PROJ_DIR, f'/datasets/gt/flame-gt.pth'))]
+gt_flame = [torch.load(os.path.join(PROJ_DIR, f'metric/metrics_data/gt-packed/gt-flame/motion-gtflame.pth'))]
 gt_flamexyz = []
 
 def extract_number_from_filename(file_name):
@@ -48,7 +67,7 @@ def extract_number_from_filename(file_name):
         return None
 
 def choose_gt_dataset_from_filename(file_name):
-    if evalmdm:
+    if args.mode == 'mdm':
         action_class = extract_number_from_filename(file_name)
 
         if file_name[3] == 'a':
@@ -56,12 +75,12 @@ def choose_gt_dataset_from_filename(file_name):
         elif file_name[3] == 'u':
             return gt_uestc[action_class]
         
-    if evalflame:
+    if args.mode == 'flame':
         return gt_flame[0]
     
 
 def choose_gtxyz_dataset_from_filename(file_name):
-    if evalmdm:
+    if args.mode == 'mdm':
         action_class = extract_number_from_filename(file_name)
 
         if file_name[3] == 'a':
@@ -69,14 +88,14 @@ def choose_gtxyz_dataset_from_filename(file_name):
         elif file_name[3] == 'u':
             return gt_uestcxyz[action_class]
     
-    if evalflame:
+    if args.mode == 'flame':
         return gt_flamexyz[0]
 
 
 def build_gt_xyz():
     device = 'cpu'
     rot2xyz = Rotation2xyz(device=device)
-    if evalmdm:
+    if args.mode == 'mdm':
         for gt in gt_humanact12:
 
             gt_xyz = rot2xyz(gt, mask=None,
@@ -96,7 +115,7 @@ def build_gt_xyz():
             gt_xyz = gt_xyz.permute(0, 3, 1, 2)
             gt_uestcxyz.append(gt_xyz)
 
-    if evalflame:
+    if args.mode == 'flame':
         for gt in gt_flame:
             gt_xyz = rot2xyz(gt, mask=None,
                             pose_rep='rot6d', translation=True, glob=True,
@@ -170,7 +189,7 @@ motion_location = os.path.join(PROJ_DIR, "datasets")
 def rootloc_pairs_from_filename(file_name, choise):
     better_loc = []
     worse_loc = []
-    npz_file = np.load(motion_location + file_name, allow_pickle=True)
+    npz_file = np.load(os.path.join(motion_location, file_name), allow_pickle=True)
     motion = npz_file['arr_0'].item()['motion'] # shape:[batch_size,25,6,60]
     motion = np.array(motion).transpose(0, 3, 1, 2) # shape:[batch_size,60,25,6]
 
@@ -179,7 +198,7 @@ def rootloc_pairs_from_filename(file_name, choise):
     
     root_loc = torch.from_numpy(motion[:,:,24:25,0:3]) # shape:[batch_size,60,1,3], batch_size=1
 
-    if evalmdm:
+    if args.mode == 'mdm':
         if choise == 'A':
             better_loc = [root_loc[0], root_loc[0], root_loc[0]]
             worse_loc = [root_loc[1], root_loc[2], root_loc[3]]
@@ -193,7 +212,7 @@ def rootloc_pairs_from_filename(file_name, choise):
             better_loc = [root_loc[3], root_loc[3], root_loc[3]]
             worse_loc = [root_loc[0], root_loc[1], root_loc[2]]
     
-    if evalflame:
+    if args.mode == 'flame':
         if choise == 'A':
             worse_loc = [root_loc[0], root_loc[0], root_loc[0]]
             better_loc = [root_loc[1], root_loc[2], root_loc[3]]
@@ -232,7 +251,7 @@ def jointxyz_pairs_from_filename(file_name, choise):
     # print(f"joints_xyz shape {joints_xyz.shape}") # is [batch_size, 24, 3, 60]
     joints_xyz = joints_xyz.permute(0, 3, 1, 2)
 
-    if evalmdm:
+    if args.mode == 'mdm':
         if choise == 'A':
             better_xyz = [joints_xyz[0], joints_xyz[0], joints_xyz[0]]
             worse_xyz = [joints_xyz[1], joints_xyz[2], joints_xyz[3]]
@@ -246,7 +265,7 @@ def jointxyz_pairs_from_filename(file_name, choise):
             better_xyz = [joints_xyz[3], joints_xyz[3], joints_xyz[3]]
             worse_xyz = [joints_xyz[0], joints_xyz[1], joints_xyz[2]]
 
-    if evalflame:
+    if args.mode == 'flame':
         if choise == 'A':
             worse_xyz = [joints_xyz[0], joints_xyz[0], joints_xyz[0]]
             better_xyz = [joints_xyz[1], joints_xyz[2], joints_xyz[3]]
@@ -397,34 +416,17 @@ def results_from_json(file_path, metric):
 
 
 
-
-
-
-if evalmdm:
-    file_path = os.path.join(PROJ_DIR, f'marked/mdm-fulleval.json')
-
-else:
-    file_path = os.path.join(PROJ_DIR, f'marked/flame-better/flame.json')
-
-def results_from_metric(file_path, metric):
-    print(f"building results from metric {metric}")
-    results_from_json(file_path, metric)
-
-
-if evalmdm:
+# Update the final execution block
+if __name__ == '__main__':
+    if args.mode == 'mdm':
+        file_path = os.path.join(PROJ_DIR, f'metric/metrics_data/marked/mdm-fulleval.json')
+    else:
+        file_path = os.path.join(PROJ_DIR, f'metric/metrics_data/marked/flame-fulleval.json')
+    print(f"evaluating, mode is {args.mode}, file path is {file_path}")
+    print(f"building gt-xyz data")
     build_gt_xyz()
     print(f"gt-xyz data built.")
-    results_from_metric(file_path, 'Root AVE')
-    results_from_metric(file_path, 'Root AE')
-    results_from_metric(file_path, 'Joint AVE')
-    results_from_metric(file_path, 'Joint AE')
-    results_from_metric(file_path, 'PFC')
-
-if evalflame:
-    build_gt_xyz()
-    print(f"gt-xyz data built.")
-    results_from_metric(file_path, 'Root AVE')
-    results_from_metric(file_path, 'Root AE')
-    results_from_metric(file_path, 'Joint AVE')
-    results_from_metric(file_path, 'Joint AE')
-    results_from_metric(file_path, 'PFC')
+    
+    metrics = ['Root AVE', 'Root AE', 'Joint AVE', 'Joint AE', 'PFC']
+    for metric in metrics:
+        results_from_json(file_path, metric)
