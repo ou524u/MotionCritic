@@ -71,6 +71,7 @@ conda activate mocritic
 
 ### Task Documentation
 
+- [File Structure](docs/filestructure.md)
 - [Annotations](docs/annotation.md)
 - [Motion files](docs/motion.md)
 - [Dataset](docs/dataset.md)

@@ -13,6 +13,8 @@ MotionCritic/datasets/
 MotionCritic/pretrained/
 MotionCritic/marked/
 MotionCritic/wandb/
+MotionCritic/metric/metrics_data/
+MotionCritic/metric/body_models/
 
 MDMCritic/body_models/
 MDMCritic/dataset/
@@ -21,4 +23,3 @@ MDMCritic/body_models/
 MDMCritic/wandb/
 requirements.txt
 
-metric/metrics_data/
