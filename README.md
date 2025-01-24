@@ -1,4 +1,4 @@
-# Aligning Motion Generation with Human Perceptions
+# Aligning Motion Generation with Human Perceptions (ICLR 2025)
 
 This repository contains the PyTorch implementation of the paper "Aligning Motion Generation with Human Perceptions". 
 <!-- submitted to NeurIPS 2024, D&B track. -->
