@@ -193,8 +193,7 @@ MDM:
   title={Human Motion Diffusion Model},
   author={Guy Tevet and Sigal Raab and Brian Gordon and Yoni Shafir and Daniel Cohen-or and Amit Haim Bermano},
   booktitle={The Eleventh International Conference on Learning Representations },
-  year={2023},
-  url={https://openreview.net/forum?id=SJ1kSyO2jwu}
+  year={2023}
 }
 ```
 
