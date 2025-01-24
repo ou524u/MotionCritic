@@ -172,11 +172,12 @@ Additional Python scripts for various fine-tuning purposes can be found in `MDMC
 ## Citation
 If you find our work useful for your project, please consider citing the paper:
 ```bibtex
-@article{motioncritic2024,
+@inproceedings{motionpercept2025,
     title={Aligning Motion Generation with Human Perceptions},
     author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},
-    journal={arXiv preprint arXiv:2407.02272},
-    year={2024}
+    booktitle={International Conference on Learning Representations (ICLR)},
+    year={2025},
+    url={https://arxiv.org/pdf/2407.02272}
 }
 ```
 
