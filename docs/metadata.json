@@ -50,7 +50,7 @@
     "conformsTo": "http://mlcommons.org/croissant/1.0",
     "citeAs": "@article{motionpercept2024,\n title={Aligning Motion Generation with Human Perceptions},\n author={Wang, Haoru and Zhu, Wentao and Miao, Luyi and Xu, Yishu and Gao, Feng and Tian, Qi and Wang, Yizhou},\n year={2024}}",
     "license": "CC BY-NC 4.0",
-    "url": "https://github.com/ou524u/AlignHP",
+    "url": "https://github.com/ou524u/MotionCritic",
     "version": "1.0",
     "distribution": [
         {
