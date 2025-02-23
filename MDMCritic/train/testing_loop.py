@@ -27,7 +27,7 @@ from data_loaders.tensors import collate
 import random
 import diffusion.gaussian_diffusion as gsdiff
 
-from pubcode.AlignHP.MDMCritic.sample.critic_generate import outof_mdm, into_critic
+from MDMCritic.sample.critic_generate import outof_mdm, into_critic
 from render.render import render_multi
 
 # For ImageNet experiments, this was a good default value.

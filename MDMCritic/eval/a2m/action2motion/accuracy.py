@@ -1,6 +1,6 @@
 import torch
 
-from pubcode.AlignHP.MDMCritic.sample.critic_generate import outof_mdm, into_critic
+from MDMCritic.sample.critic_generate import outof_mdm, into_critic
 
 def calculate_accuracy(model, motion_loader, num_labels, classifier, device):
     confusion = torch.zeros(num_labels, num_labels, dtype=torch.long)

@@ -18,7 +18,7 @@ from train.train_platforms import ClearmlPlatform, TensorboardPlatform, NoPlatfo
 from critic.critic import MotionCritic
 import torch
 from render.render import render_multi
-from pubcode.AlignHP.MDMCritic.sample.critic_generate import outof_mdm, into_critic, outof_critic
+from MDMCritic.sample.critic_generate import outof_mdm, into_critic, outof_critic
 from argparse import ArgumentParser
 PROJ_DIR = os.path.dirname(os.path.abspath(__file__))
 
