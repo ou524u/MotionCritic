@@ -87,7 +87,7 @@ bash prepare/prepare_pretrained.sh  # Download pretrained models
 ```
 
 Alternatively, you can manually download the files from the following links:
-- Pre-processed datasets: [Google Drive Link](https://drive.google.com/file/d/1H5MAPBIAygGV5HSa2yIftWDdGq4fPEXB/view?usp=drive_link)
+- Pre-processed datasets: [Google Drive Link](https://drive.google.com/file/d/1aRR6uTL4UWaLGtd6aOzU7PoHUkbPeIc9/view?usp=sharing)
 - Pretrained MotionCritic model: [Google Drive Link](https://drive.google.com/file/d/1vifu1vktjCWDpyPpzGPugzHNalhsaMpq/view?usp=drive_link)
 
 

@@ -1,9 +1,9 @@
 cd MotionCritic
 mkdir -p datasets
 cd datasets
-gdown https://drive.google.com/uc?id=1H5MAPBIAygGV5HSa2yIftWDdGq4fPEXB
-unzip mlists.zip
-rm -f mlists.zip
+gdown https://drive.google.com/uc?id=1aRR6uTL4UWaLGtd6aOzU7PoHUkbPeIc9
+unzip mlists_corrected.zip
+rm -f mlists_corrected.zip
 
 cd ..
 mkdir -p marked
