@@ -16,7 +16,6 @@ from torch.optim.lr_scheduler import ExponentialLR
 import torch.nn.functional as F
 from torch.backends import cudnn
 import gc
-import pytorch_warmup as warmup
 import argparse
 
 # this might be useful
@@ -40,9 +39,6 @@ parser.add_argument('--epoch', type=int, default=200,
 parser.add_argument('--exp_name', type=str, default="exp7_2e-5_decay_seqsplit",
                     help='Experiment name for WandB')
 
-parser.add_argument('--dataset', type=str, default="hfull_shuffle",
-                    help='to determine use which train and val dataset')
-
 # arguments
 parser.add_argument('--save_checkpoint', action='store_true',
                     help='Whether to save model checkpoints during training (default: False)')
@@ -51,9 +47,6 @@ parser.add_argument('--load_model', type=str, default=None,
                     help='Path to the saved model checkpoint to load (default: None)')
 
 parser.add_argument('--save_latest', action='store_true',
-                    help='Whether to save model checkpoints during training (default: False)')
-
-parser.add_argument('--lr_warmup', action='store_true',
                     help='Whether to save model checkpoints during training (default: False)')
 
 parser.add_argument('--lr_decay', action='store_true',
@@ -74,7 +67,7 @@ gpu_number = len(gpu_indices)
 
 
 batch_size = args.batch_size
-lr = 2e-5 * (batch_size/32) # parallel changing
+lr = 2e-3 * (batch_size/32) # parallel changing
 
 print(f"training on gpu {gpu_indices}, training starting with batchsize {batch_size}, lr {lr}")
 
@@ -89,55 +82,8 @@ big_model = args.big_model
 origin_model = args.origin_model
 
 
-
-if args.dataset == 'mdm_prompt':
-    train_pth_name = "mlist_mdma_p00_to_p09_mdmu_p00_to_p37.pth"
-    val_pth_name = "mlist_mdma_p10_to_p11_mdmu_p38_to_p39.pth"
-
-elif args.dataset == 'mdm_seq':
-    train_pth_name = "mlist_mdm_trainseq.pth"
-    val_pth_name = "mlist_mdm_valseq.pth"
-
-elif args.dataset == 'mdm_shuffle':
-    train_pth_name = "mlist_mdm_trainshuffle.pth"
-    val_pth_name = "mlist_mdm_valshuffle.pth"
-
-elif args.dataset == 'flame_seq':
-    train_pth_name = "mlist_flame_trainseq.pth"
-    val_pth_name = "mlist_flame_valseq.pth"
-
-elif args.dataset == 'flame_shuffle':
-    train_pth_name = "mlist_flame_trainshuffle.pth"
-    val_pth_name = "mlist_flame_valshuffle.pth"
-
-elif args.dataset == 'hfull_seq':
-    train_pth_name = "mlist_hfull_trainseq.pth"
-    val_pth_name = "mlist_hfull_valseq.pth"
-
-elif args.dataset == 'hfull_shuffle':
-    train_pth_name = "mlist_hfull_trainshuffle.pth"
-    val_pth_name = "mlist_hfull_valshuffle.pth"
-
-elif args.dataset == 'full_shuffle':
-    train_pth_name = "mlist_full_trainshuffle.pth"
-    val_pth_name = "mlist_full_valshuffle.pth"
-
-elif args.dataset == 'mdmfull_seq':
-    train_pth_name = "mlist_mdmfull_trainseq.pth"
-    val_pth_name = "mlist_mdmfull_valseq.pth"
-
-elif args.dataset == 'mdmfull_shuffle':
-    train_pth_name = "mlist_mdmfull_trainshuffle.pth"
-    val_pth_name = "mlist_mdmfull_valshuffle.pth"
-    
-elif args.dataset == 'flamefull_seq':
-    train_pth_name = "mlist_flamefull_trainseq.pth"
-    val_pth_name = "mlist_flamefull_valseq.pth"
-
-elif args.dataset == 'flamefull_shuffle':
-    train_pth_name = "mlist_flamefull_trainshuffle.pth"
-    val_pth_name = "mlist_flamefull_valshuffle.pth"
-
+train_pth_name = "mlist_mdmfull_train_corrected.pth"
+val_pth_name = "mlist_mdmfull_val_corrected.pth"
 
 os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(map(str, gpu_indices))
 # Set device
@@ -220,27 +166,9 @@ criterion = loss_func  # Assuming your loss_func is already defined
 optimizer = torch.optim.Adam(model.parameters(), lr=lr, 
                              betas=(0.9, 0.999), weight_decay=1e-4)
 
-# optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-
-final_lr = 1e-5
-initial_lr = 5e-4
-warmup_type = "radam" 
-
 # lr scheduling
-# gamma = (final_lr / initial_lr) ** (1.0 / num_epochs)
 gamma = 0.995
 scheduler = ExponentialLR(optimizer, gamma)
-
-
-if warmup_type == 'linear':
-        warmup_scheduler = warmup.UntunedLinearWarmup(optimizer)
-elif warmup_type == 'exponential':
-        warmup_scheduler = warmup.UntunedExponentialWarmup(optimizer)
-elif warmup_type == 'radam':
-        warmup_scheduler = warmup.RAdamWarmup(optimizer)
-elif warmup_type == 'none':
-        warmup_scheduler = warmup.LinearWarmup(optimizer, 1)
-
 
 # Load the model if load_model_path is provided
 if load_model_path:
@@ -301,12 +229,6 @@ for epoch in range(start_epoch, num_epochs):
 
     if lr_decay:
         scheduler.step()
-
-
-    if lr_warmup:
-        with warmup_scheduler.dampening():
-            scheduler.step()
-
 
     with torch.no_grad():
         model.eval()

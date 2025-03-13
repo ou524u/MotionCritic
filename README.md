@@ -129,7 +129,7 @@ Train your own critic model with the following command:
 
 ```bash
 cd MotionCritic
-python train.py --gpu_indices 0 --exp_name my_experiment --dataset mdmfull_shuffle --save_latest --lr_decay --big_model
+python train.py --gpu_indices 0 --exp_name my_experiment --save_latest --lr_decay --big_model
 ```
 
 ## Critic Model Supervised Fine-Tuning
