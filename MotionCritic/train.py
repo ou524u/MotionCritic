@@ -76,7 +76,6 @@ exp_name = args.exp_name
 num_epochs = args.epoch
 save_checkpoint = args.save_checkpoint
 save_latest = args.save_latest
-lr_warmup = args.lr_warmup
 lr_decay = args.lr_decay
 big_model = args.big_model
 origin_model = args.origin_model
